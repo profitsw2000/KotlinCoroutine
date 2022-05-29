@@ -1,6 +1,6 @@
 import kotlinx.coroutines.*
 
-fun main() {
+fun main() = runBlocking {
     println("Start: ${Thread.currentThread().name}")
 
     GlobalScope.launch {
@@ -9,9 +9,8 @@ fun main() {
         println("Fake work end: ${Thread.currentThread().name}")
     }
 
-    runBlocking {
-        mySuspendFunc(2500)
-    }
+    mySuspendFunc(2500)
+
     println("End: ${Thread.currentThread().name}")
 }
 
