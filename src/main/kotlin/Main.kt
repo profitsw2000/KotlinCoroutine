@@ -3,15 +3,16 @@ import kotlinx.coroutines.*
 fun main() = runBlocking {
     println("Start: ${Thread.currentThread().name}")
 
-    val jobDeferred: Deferred<String> = async {
-        println("Fake work start: ${Thread.currentThread().name}")
-        delay(2000)
-        println("Fake work end: ${Thread.currentThread().name}")
-        "MyString"
+    val job: Job = launch {
+        for (i in 0..10) {
+            Thread.sleep(1000)
+            println(i)
+        }
     }
 
-    val myString: String = jobDeferred.await()
-    println(myString)
+    delay(3000)
+    job.cancel()
+    job.join()
 
     println("End: ${Thread.currentThread().name}")
 }
