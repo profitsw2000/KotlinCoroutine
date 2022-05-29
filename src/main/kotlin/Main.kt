@@ -10,7 +10,7 @@ fun main() = runBlocking {
                 delay(1000)
             }
         } catch (ex: CancellationException) {
-            println("\nCaught exception!!")
+            println("\nCaught exception: ${ex.message}")
         } finally {
             withContext(NonCancellable) {
                 delay(5000)
@@ -20,7 +20,8 @@ fun main() = runBlocking {
     }
 
     delay(3000)
-    job.cancelAndJoin()
+    job.cancel("My exception!!")
+    job.join()
 
     println("End: ${Thread.currentThread().name}")
 }
