@@ -7,6 +7,7 @@ fun main() = runBlocking {
         for (i in 0..10) {
             Thread.sleep(1000)
             println(i)
+            yield()
         }
     }
 
