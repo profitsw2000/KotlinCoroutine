@@ -5,10 +5,12 @@ fun main() {
 
     GlobalScope.launch {
         println("Fake work start: ${Thread.currentThread().name}")
-        Thread.sleep(2000)
+        delay(2000)
         println("Fake work end: ${Thread.currentThread().name}")
     }
 
-    Thread.sleep(2500)
+    runBlocking {
+        delay(2500)
+    }
     println("End: ${Thread.currentThread().name}")
 }
