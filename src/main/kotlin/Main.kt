@@ -4,12 +4,15 @@ fun main() = runBlocking {
     println("Start: ${Thread.currentThread().name}")
 
     val job: Job = launch(Dispatchers.Default) {
-        for (i in 0..10) {
-            if (!isActive){
-                return@launch
+        try {
+            for (i in 0..10) {
+                println(i)
+                Thread.sleep(1000)
             }
-            println(i)
-            Thread.sleep(1000)
+        } catch (ex: CancellationException) {
+            println("\nCaught exception!!")
+        } finally {
+            println("\nFinal block.")
         }
     }
 
