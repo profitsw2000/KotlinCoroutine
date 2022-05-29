@@ -3,17 +3,18 @@ import kotlinx.coroutines.*
 fun main() = runBlocking {
     println("Start: ${Thread.currentThread().name}")
 
-    val job: Job = launch {
+    val job: Job = launch(Dispatchers.Default) {
         for (i in 0..10) {
-            Thread.sleep(1000)
+            if (!isActive){
+                return@launch
+            }
             println(i)
-            yield()
+            Thread.sleep(1000)
         }
     }
 
     delay(3000)
-    job.cancel()
-    job.join()
+    job.cancelAndJoin()
 
     println("End: ${Thread.currentThread().name}")
 }
